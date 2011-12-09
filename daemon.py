@@ -65,6 +65,21 @@ class Daemon():
         self.descriptors()
         self.run()
  
+    def status(self):
+        try:
+            pf = file(self.pidfile,'r')
+            pid = int(pf.read().strip())
+            pf.close()
+        except IOError:
+            pid = None
+	if not pid:
+	   print "enter in daemon not logic"
+	   message = "Daemon not running? (check %s)\n"
+	   sys.stderr.write(message % self.pidfile)
+	else:
+	    print "daemon already running"
+            return pid
+    
     def stop(self):
         try:
             pf = file(self.pidfile,'r')

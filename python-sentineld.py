@@ -61,11 +61,13 @@ my_daemon = MyDaemon()
 if len(sys.argv) >= 2:
     if 'start' == sys.argv[1]:
         my_daemon.start()
+    #	my_daemon.start(interactive=True)
     elif 'stop' == sys.argv[1]:
         my_daemon.stop()
-    	my_daemon.start(interactive=True)
     elif 'restart' == sys.argv[1]:
         my_daemon.restart()
+    elif 'status' == sys.argv[1]:
+        my_daemon.status()
     else:
         print "Unknown command"
         sys.exit(2)
