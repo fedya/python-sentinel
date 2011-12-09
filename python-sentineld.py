@@ -24,13 +24,14 @@ class MyDaemon(daemon.Daemon):
     		while True:
         		ip = q.get()
         		print "Thread %s: Pinging %s" % (i, ip)
-        		ret = subprocess.call("ping -c 5 %s" % ip,
+        		ret = subprocess.call("ping -c 5 -i4 %s" % ip,
                         	shell=True,
                         	stdout=open('/dev/null', 'w'),
                         	stderr=subprocess.STDOUT)
         		if ret == 0:
             			print "%s: working fine." % ip
-        		else:
+        			q.put(ip)
+			else:
             			print "server %s: not respond" % ip
             			print "How about slap your shit, %s" % ip
             			ssh=paramiko.SSHClient()
@@ -40,7 +41,7 @@ class MyDaemon(daemon.Daemon):
             			result = stdout.read().splitlines()
             			print result
             			ssh.close()
-        	q.task_done()
+        		q.task_done()
 		#Spawn thread pool
 	for i in range(num_threads):
 
