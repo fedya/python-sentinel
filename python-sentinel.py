@@ -25,7 +25,7 @@ def pinger(i, q):
             print "%s: working fine." % ip
 	else:
 	    print "%s: не отвечает" % ip
-	    print "How about slap your shiti, %s"
+	    print "How about slap your shit, %s" % ip
 	    ssh=paramiko.SSHClient()
 	    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	    ssh.connect("note2",username="root",password="rosa", port=22)
