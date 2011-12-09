@@ -15,7 +15,7 @@ class MyDaemon(daemon.Daemon):
 
 
     def run(self):
-	num_threads = 4
+	num_threads = 1
 	queue = Queue()
 	#ips = ["olololdddd", "google.com", "mail.ru", "yandex.ru"]
 	ips = ["mail.ru"]
@@ -28,20 +28,19 @@ class MyDaemon(daemon.Daemon):
                         	shell=True,
                         	stdout=open('/dev/null', 'w'),
                         	stderr=subprocess.STDOUT)
-        	if ret == 0:
-            		print "%s: working fine." % ip
-        	else:
-            		print "server %s: not respond" % ip
-            		print "How about slap your shit, %s" % ip
-            		ssh=paramiko.SSHClient()
-            		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            		ssh.connect("note2",username="root",password="rosa", port=22)
-            		stdin, stdout, stderr = ssh.exec_command("cat /var/log/pm-powersave.log")
-            		result = stdout.read().splitlines()
-            		print result
-            		ssh.close()
+        		if ret == 0:
+            			print "%s: working fine." % ip
+        		else:
+            			print "server %s: not respond" % ip
+            			print "How about slap your shit, %s" % ip
+            			ssh=paramiko.SSHClient()
+            			ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            			ssh.connect("note2",username="root",password="rosa", port=22)
+            			stdin, stdout, stderr = ssh.exec_command("cat /var/log/pm-powersave.log")
+            			result = stdout.read().splitlines()
+            			print result
+            			ssh.close()
         	q.task_done()
-
 		#Spawn thread pool
 	for i in range(num_threads):
 
