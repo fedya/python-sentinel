@@ -24,7 +24,7 @@ def pinger(i, q):
         if ret == 0:
             print "%s: working fine." % ip
 	else:
-	    print "%s: не отвечает" % ip
+	    print "server %s: not respond" % ip
 	    print "How about slap your shit, %s" % ip
 	    ssh=paramiko.SSHClient()
 	    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
